@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "527245737521",
+    "firebase_url": "https://ticket-manager-c9758-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ticket-manager-c9758",
+    "storage_bucket": "ticket-manager-c9758.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527245737521:android:6b64bcd671831c81879f10",
+        "android_client_info": {
+          "package_name": "com.ticket.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8NcKaV6AZptGqpFIX3SgA4x0NCeot6QU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
