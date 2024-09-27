@@ -16,6 +16,5 @@ public class Like {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLike;
-
     private Integer nbrLike;
 }

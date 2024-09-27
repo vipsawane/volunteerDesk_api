@@ -12,6 +12,10 @@ import lombok.Setter;
 @Getter @Setter
 public class Role {
 
-    private String a;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idRole;
+
+    private String libelleRole;
 
 }
