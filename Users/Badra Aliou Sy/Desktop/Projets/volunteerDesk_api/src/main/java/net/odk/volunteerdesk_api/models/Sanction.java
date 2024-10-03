@@ -21,4 +21,8 @@ public class Sanction{
     @OneToMany(mappedBy = "sanction")
     @JsonIgnore
     private List<User> users;
+
+    @OneToMany(mappedBy = "sanction")
+    @JsonIgnore
+    private List<Organisation> organisations;
 }

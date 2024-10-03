@@ -1,10 +1,13 @@
 package net.odk.volunteerdesk_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity @AllArgsConstructor @NoArgsConstructor @Getter @Setter
 public class Message {
@@ -16,7 +19,15 @@ public class Message {
     private String imageMessage;
     private String contenuMessage;
     @Column(nullable = false)
-    private String statutMessage;
-    @Column(nullable = false)
     private String DateMessage;
+
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "idStatutMessage")
+    private StatutMessage statutMessage;
+
+
 }

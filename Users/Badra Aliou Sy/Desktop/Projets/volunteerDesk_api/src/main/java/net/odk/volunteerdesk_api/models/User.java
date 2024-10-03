@@ -1,5 +1,6 @@
 package net.odk.volunteerdesk_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -44,4 +46,16 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "idSanction")
     private Sanction sanction;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Notification> notifications;
+
+    @ManyToOne
+    @JoinColumn(name = "idCandidature")
+    private Candidature candidature;
 }

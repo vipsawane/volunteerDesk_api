@@ -59,7 +59,7 @@ public class MessageService {
     public Message update(Message me, Long id, MultipartFile photo) throws Exception {
         Message m = messageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun message trouvé"));
         m.setContenuMessage(me.getContenuMessage());
-        m.setStatutMessage(me.getStatutMessage());
+//        m.setStatutMessage(me.getStatutMessage());
 
         //image
         if (photo != null) {

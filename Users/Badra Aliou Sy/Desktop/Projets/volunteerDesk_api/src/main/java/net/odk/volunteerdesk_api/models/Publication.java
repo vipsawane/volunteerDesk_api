@@ -27,5 +27,5 @@ public class Publication {
 
     @OneToMany(mappedBy = "publication")
     @JsonIgnore
-    private List<Commentaire> commentaires;
+    private List<Commentaire> commentaire;
 }

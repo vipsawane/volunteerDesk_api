@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,4 +37,19 @@ public class Evenement {
     @OneToOne
     @JsonIgnore
     private DetailsEvenement detailsEvenement;
+
+    @ManyToOne
+    @JoinColumn(name="idUser")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="idOrganisation")
+    private Organisation organisation;
+
+    @OneToMany(mappedBy = "evenement")
+    @JsonIgnore
+    private List<Candidature> candidatures;
+
+
+
 }

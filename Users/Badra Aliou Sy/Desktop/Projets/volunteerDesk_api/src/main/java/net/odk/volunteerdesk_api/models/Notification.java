@@ -17,5 +17,13 @@ public class Notification {
 
     private String contenuNotification;
 
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "idOrganisation")
+    private Organisation organisation;
+
 
 }

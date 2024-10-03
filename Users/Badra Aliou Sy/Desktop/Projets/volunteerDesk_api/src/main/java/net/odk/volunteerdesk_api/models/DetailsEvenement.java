@@ -35,4 +35,5 @@ public class DetailsEvenement {
 
     @OneToOne
     private Evenement evenement;
+
 }

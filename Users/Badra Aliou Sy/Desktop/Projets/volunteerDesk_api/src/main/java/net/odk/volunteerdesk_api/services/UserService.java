@@ -30,7 +30,7 @@ public class UserService {
         user.setMotDePasse(passWordHasher);
         //image
         if (photo1 != null) {
-            String location = "C:\\xampp\\htdocs\\photo";
+            String location = "C:\\laragon\\photo";
             try {
                 Path rootlocation = Paths.get(location);
                 if (!Files.exists(rootlocation)) {
@@ -64,14 +64,14 @@ public class UserService {
         }
         //image
         if (photo2 != null) {
-            String location = "C:\\xampp\\htdocs\\photo";
+            String location = "C:\\laragon\\photo";
             try {
                 Path rootlocation = Paths.get(location);
                 if (!Files.exists(rootlocation)) {
                     Files.createDirectories(rootlocation);
                     Files.copy(photo2.getInputStream(),
                             rootlocation.resolve(photo2.getOriginalFilename()));
-                    user.setPhotoUser("photo/"
+                    user.setPhotoCarteIdentite("photo/"
                             + photo2.getOriginalFilename());
                 } else {
                     try {
@@ -80,12 +80,12 @@ public class UserService {
                         if (!Files.exists(name)) {
                             Files.copy(photo2.getInputStream(),
                                     rootlocation.resolve(photo2.getOriginalFilename()));
-                            user.setPhotoUser("photo/"
+                            user.setPhotoCarteIdentite("photo/"
                                     + photo2.getOriginalFilename());
                         } else {
                             Files.delete(name);
                             Files.copy(photo2.getInputStream(), rootlocation.resolve(photo2.getOriginalFilename()));
-                            user.setPhotoUser("photo/"
+                            user.setPhotoCarteIdentite("photo/"
                                     + photo2.getOriginalFilename());
                         }
                     } catch (Exception e) {
@@ -114,11 +114,10 @@ public class UserService {
         u.setCompetences(user.getCompetences());
         u.setAnneeExperience(user.getAnneeExperience());
         u.setNbrSuspension(user.getNbrSuspension());
-        u.setPhotoUser(user.getPhotoUser());
 
         //image
         if (photo1 != null) {
-            String location = "C:\\xampp\\htdocs\\photo";
+            String location = "C:\\laragon\\photo";
             try {
                 Path rootlocation = Paths.get(location);
                 if (!Files.exists(rootlocation)) {
@@ -152,14 +151,14 @@ public class UserService {
         }
         //image
         if (photo2 != null) {
-            String location = "C:\\xampp\\htdocs\\photo";
+            String location = "C:\\laragon\\photo";
             try {
                 Path rootlocation = Paths.get(location);
                 if (!Files.exists(rootlocation)) {
                     Files.createDirectories(rootlocation);
                     Files.copy(photo2.getInputStream(),
                             rootlocation.resolve(photo2.getOriginalFilename()));
-                    u.setPhotoUser("photo/"
+                    u.setPhotoCarteIdentite("photo/"
                             + photo2.getOriginalFilename());
                 } else {
                     try {
@@ -168,12 +167,12 @@ public class UserService {
                         if (!Files.exists(name)) {
                             Files.copy(photo2.getInputStream(),
                                     rootlocation.resolve(photo2.getOriginalFilename()));
-                            user.setPhotoUser("photo/"
+                            user.setPhotoCarteIdentite("photo/"
                                     + photo2.getOriginalFilename());
                         } else {
                             Files.delete(name);
                             Files.copy(photo2.getInputStream(), rootlocation.resolve(photo2.getOriginalFilename()));
-                            u.setPhotoUser("photo/"
+                            u.setPhotoCarteIdentite("photo/"
                                     + photo2.getOriginalFilename());
                         }
                     } catch (Exception e) {

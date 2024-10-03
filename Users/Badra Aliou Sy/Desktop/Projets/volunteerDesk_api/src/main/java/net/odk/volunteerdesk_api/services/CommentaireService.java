@@ -20,6 +20,15 @@ public class CommentaireService {
         return commentaireRepository.findById(id);
     }
 
+    public Commentaire update(Commentaire c, Long id){
+        Commentaire commentaire = commentaireRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun commentaire trouvé") );
+
+        commentaire.setContenuCommentaire(commentaire.getContenuCommentaire());
+        commentaire.setDateCommentaire(commentaire.getDateCommentaire());
+
+        return commentaireRepository.save(commentaire);
+    }
+
     public Commentaire save(Commentaire commentaire) {
         return commentaireRepository.save(commentaire);
     }
@@ -27,4 +36,6 @@ public class CommentaireService {
     public void deleteById(Long id) {
         commentaireRepository.deleteById(id);
     }
-}
+
+    }
+

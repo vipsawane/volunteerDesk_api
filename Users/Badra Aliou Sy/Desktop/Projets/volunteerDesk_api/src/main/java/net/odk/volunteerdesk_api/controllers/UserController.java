@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<User> create(
             @Valid @RequestParam("user") String userString,
             @RequestParam(value = "photoUser", required = false) MultipartFile imageFile1,
-            @RequestParam(value = "cvUser", required = false) MultipartFile imageFile)
+            @RequestParam(value = "photoCarteIdentite", required = false) MultipartFile imageFile)
             throws Exception {
         User user = new User();
         try {
@@ -35,7 +35,7 @@ public class UserController {
             throw new Exception(e.getMessage());
         }
 
-        User savedMarque = userService.save(user, imageFile, imageFile1);
+        User savedMarque = userService.save(user, imageFile1, imageFile);
         System.out.println("user controller :" + savedMarque);
 
         return new ResponseEntity<>(savedMarque, HttpStatus.CREATED);
@@ -46,7 +46,7 @@ public class UserController {
             @Valid @RequestParam("user") String userString,
             @PathVariable Long id,
             @RequestParam(value = "photoUser", required = false) MultipartFile imageFile1,
-            @RequestParam(value = "photoProfil", required = false) MultipartFile imageFile)
+            @RequestParam(value = "photoCarteIdentite", required = false) MultipartFile imageFile)
             throws Exception {
         User user = new User();
         try {

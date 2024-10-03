@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import net.odk.volunteerdesk_api.models.Commentaire;
 import net.odk.volunteerdesk_api.models.Publication;
 import net.odk.volunteerdesk_api.services.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class PublicationController {
             throw new Exception(e.getMessage());
         }
 
-        Publication saved = publicationService.update(id);
+        Publication saved = publicationService.update(ev,id, imageFile);
         System.out.println("Publication controller :" + saved);
 
         return new ResponseEntity<>(saved, HttpStatus.CREATED);

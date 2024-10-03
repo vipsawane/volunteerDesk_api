@@ -23,7 +23,7 @@ public class RessourceService {
 
         //image
         if (photo != null) {
-            String location = "C:\\xampp\\htdocs\\photo";
+            String location = "C:\\laragon\\photo";
             try {
                 Path rootlocation = Paths.get(location);
                 if (!Files.exists(rootlocation)) {
@@ -65,7 +65,7 @@ public class RessourceService {
         re.setContenuRessource(r.getContenuRessource());
         //image
         if (photo != null) {
-            String location = "C:\\xampp\\htdocs\\photo";
+            String location = "C:\\laragon\\photo";
             try {
                 Path rootlocation = Paths.get(location);
                 if (!Files.exists(rootlocation)) {

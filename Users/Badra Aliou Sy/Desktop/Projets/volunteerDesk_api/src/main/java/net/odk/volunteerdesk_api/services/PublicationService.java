@@ -62,14 +62,14 @@ public class PublicationService {
         return publicationRepository.save(publication);
     }
 
-    public Publication update(Long id) throws Exception {
+    public Publication update(Publication ev, Long id, MultipartFile photo) throws Exception {
         Publication p = publicationRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucune publication trouvé"));
         p.setImagePublication(p.getImagePublication());
         p.setContenuPublication(p.getContenuPublication());
 
-        /*//image
+        //image
         if (photo != null) {
-            String location = "C:\\xampp\\htdocs\\photo";
+            String location = "C:\\laragon\\photo";
             try {
                 Path rootlocation = Paths.get(location);
                 if (!Files.exists(rootlocation)) {
@@ -100,7 +100,7 @@ public class PublicationService {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-        }*/
+        }
 
         return publicationRepository.save(p);
     }
