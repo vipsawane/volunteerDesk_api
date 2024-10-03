@@ -1,13 +1,16 @@
 package net.odk.volunteerdesk_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity @NoArgsConstructor @AllArgsConstructor @Getter @Setter
-public class Ressouce {
+public class Ressource {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -16,8 +19,14 @@ public class Ressouce {
     private String imageRessource;
     private String libelleRessource;
     private String contenuRessource;
-    @Column(nullable = false)
-    private Integer likeRessource;
-    @Column(nullable = false)
-    private String commentaireRessource;
+    private int likeRessource;
+
+//    @OneToMany(mappedBy = "ressource")
+//    @JsonIgnore
+//    private List<Like> like;
+
+    @OneToMany(mappedBy = "ressource")
+    @JsonIgnore
+    private List<Commentaire> commentaire;
+
 }

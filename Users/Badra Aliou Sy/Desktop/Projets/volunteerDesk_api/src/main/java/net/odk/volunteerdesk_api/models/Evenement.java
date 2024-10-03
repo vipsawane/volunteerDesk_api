@@ -1,5 +1,6 @@
 package net.odk.volunteerdesk_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Evenement {
 
     @Id
@@ -17,11 +20,19 @@ public class Evenement {
 
     @Column(unique = true)
     private String libelle;
+
     private String description;
-    private String lieuEvenement;
-    @Column(nullable = false)
-    private String organisateur;
+
+    private String nbrPoste;
+
     @Column(nullable = false)
     private String photo;
-    private Integer nbrPoste;
+
+    @ManyToOne
+    @JoinColumn(name = "idTypeEvenement")
+    private TypeEvenement typeEvenement;
+
+    @OneToOne
+    @JsonIgnore
+    private DetailsEvenement detailsEvenement;
 }

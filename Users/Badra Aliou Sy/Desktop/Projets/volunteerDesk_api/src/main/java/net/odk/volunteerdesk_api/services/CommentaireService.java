@@ -12,19 +12,19 @@ import java.util.Optional;
 public class CommentaireService {
 
     @Autowired
-    private CommentaireRepository recrutementRepository;
+    private CommentaireRepository commentaireRepository;
 
-    public List<Commentaire> findAll(){ return recrutementRepository.findAll();}
+    public List<Commentaire> findAll(){ return commentaireRepository.findAll();}
 
     public Optional<Commentaire> findById(Long id) {
-        return recrutementRepository.findById(id);
+        return commentaireRepository.findById(id);
     }
 
-    public Commentaire save(Commentaire recrutement) {
-        return recrutementRepository.save(recrutement);
+    public Commentaire save(Commentaire commentaire) {
+        return commentaireRepository.save(commentaire);
     }
 
     public void deleteById(Long id) {
-        recrutementRepository.deleteById(id);
+        commentaireRepository.deleteById(id);
     }
 }

@@ -14,14 +14,14 @@ public class Organisation{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String idOrganisation;
+    private Long idOrganisation;
 
     private String numeroIdentification;
     private String raisonSocial;
     private String description;
     private String siege;
     private String domaineActivite;
-    private Date dateCreation;
+    private String dateCreation;
     @Column(nullable = false)
     private Integer nbrSanction;
 

@@ -17,4 +17,6 @@ public class Message {
     private String contenuMessage;
     @Column(nullable = false)
     private String statutMessage;
+    @Column(nullable = false)
+    private String DateMessage;
 }

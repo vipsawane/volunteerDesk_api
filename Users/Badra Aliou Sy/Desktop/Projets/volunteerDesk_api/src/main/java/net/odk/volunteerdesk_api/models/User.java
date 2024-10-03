@@ -29,10 +29,19 @@ public class User {
     @Column(unique = true)
     private String telephone;
     private Date dateNaissance;
+    @Column(nullable = false, unique = true)
+    private String numCarteIdentite;
+    private String photoCarteIdentite;
+    private String competences;
+    private int anneeExperience;
     @Column(nullable = false)
-    private String photoProfil;
+    private int nbrSuspension;
 
+    @ManyToOne
+    @JoinColumn(name = "idRole")
+    private Role role;
 
-
-
+    @ManyToOne
+    @JoinColumn(name = "idSanction")
+    private Sanction sanction;
 }

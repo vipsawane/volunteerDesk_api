@@ -16,4 +16,6 @@ public class StatutMessage {
     private Long idStatutMessage;
 
     private String libelleStatutMessage;
+
+
 }

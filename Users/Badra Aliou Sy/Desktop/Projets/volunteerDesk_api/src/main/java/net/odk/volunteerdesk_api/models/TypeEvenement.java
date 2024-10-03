@@ -12,17 +12,18 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public class Role {
+@Getter
+@Setter
+public class TypeEvenement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idRole;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idTypeEvenement;
 
-    private String libelleRole;
+    @Column(nullable = false)
+    private  String libelleTypeEvenement;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany
     @JsonIgnore
-    private List<User> user;
-
+    private List<Evenement> evenement;
 }

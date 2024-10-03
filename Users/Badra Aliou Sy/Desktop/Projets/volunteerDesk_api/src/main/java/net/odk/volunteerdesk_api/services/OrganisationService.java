@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrganisationService {
@@ -14,10 +13,28 @@ public class OrganisationService {
     @Autowired
     private OrganisationRepository organisationRepository;
 
-    public List<Organisation> findAll(){return organisationRepository.findAll();}
 
-    public Optional<Organisation> findById(Long id) {
-        return organisationRepository.findById(id);
+    public Organisation update(Organisation org, Long id){
+        Organisation organisation =  organisationRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucune organisation trouvé"));
+
+        organisation.setNumeroIdentification(organisation.getNumeroIdentification());
+        organisation.setRaisonSocial(organisation.getRaisonSocial());
+        organisation.setDescription(organisation.getDescription());
+        organisation.setSiege(organisation.getSiege());
+        organisation.setDomaineActivite(organisation.getDomaineActivite());
+        organisation.setDateCreation(organisation.getDateCreation());
+        organisation.setNbrSanction(organisation.getNbrSanction());
+
+        return organisationRepository.save(organisation);
+    }
+
+    public List<Organisation> findAll(){
+        return organisationRepository.findAll();
+    }
+
+    public Organisation findById(Long id) {
+        Organisation organisation =  organisationRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucune organisation trouvée"));
+        return organisation;
     }
 
     public Organisation save(Organisation organisation) {

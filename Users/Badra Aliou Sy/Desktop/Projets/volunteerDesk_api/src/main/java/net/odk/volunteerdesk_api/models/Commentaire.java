@@ -6,18 +6,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
-@Entity @NoArgsConstructor @AllArgsConstructor @Getter @Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Commentaire {
 
-    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCommentaire;
+
     private String contenuCommentaire;
+
     @Column(nullable = false)
-    private Date dateCommentaire;
+    private String dateCommentaire;
 
+    @ManyToOne
+    @JoinColumn(name = "idPublication")
+    private  Publication publication;
 
-
+    @ManyToOne
+    @JoinColumn(name = "idRessource")
+    private Ressource ressource;
 }

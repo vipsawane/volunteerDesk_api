@@ -6,22 +6,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
-@Entity @AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class DetailsEvenement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long idDetailsEvenement;
+
     private String lieuEvenement;
-    private Date dateDebutEvenement;
-    private Date dateFinEvenement;
-    @Column(nullable = false)
+
+    private String dateDebutEvenement;
+
+    private String dateFinEvenement;
+
     private Boolean participation;
+
     @Column(nullable = false)
-    private Integer nbrCandidat;
+    private int nbrCandidat;
+
+    private String organisateur;
+
     @Column(nullable = false)
-    private Integer nbrParticipant;
+    private String Formateur;
+
+    @OneToOne
+    private Evenement evenement;
 }

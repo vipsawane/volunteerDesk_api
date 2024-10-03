@@ -1,24 +1,28 @@
 package net.odk.volunteerdesk_api.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
-@Entity @AllArgsConstructor @NoArgsConstructor @Getter @Setter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Candidature {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCandidature;
 
+    @Column(nullable = false)
     private String libelleCandidature;
+
+    @Column(nullable = false)
     private String etatCandidature;
-    private Date dateCandidature;
+
+    @Column(nullable = false)
+    private String dateCandidature;
 }
