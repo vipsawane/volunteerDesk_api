@@ -19,8 +19,13 @@ public class Organisation{
     private Long idOrganisation;
 
     private String numeroIdentification;
+    private String motDePasse;
     private String raisonSocial;
+    private String logo;
     private String description;
+    private String emailOrganisation;
+    private String contact;
+    private String adresse;
     private String siege;
     private String domaineActivite;
     private String dateCreation;

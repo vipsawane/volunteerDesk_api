@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -35,10 +36,10 @@ public class UserController {
             throw new Exception(e.getMessage());
         }
 
-        User savedMarque = userService.save(user, imageFile1, imageFile);
-        System.out.println("user controller :" + savedMarque);
+        User savedUser = userService.save(user, imageFile1, imageFile);
+        System.out.println("user controller :" + savedUser);
 
-        return new ResponseEntity<>(savedMarque, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
     @Operation(summary = "Modifier utilisateur")
@@ -55,10 +56,10 @@ public class UserController {
             throw new Exception(e.getMessage());
         }
 
-        User savedMarque = userService.update(user, id, imageFile, imageFile);
-        System.out.println("user controller :" + savedMarque);
+        User savedUser = userService.update(user, id, imageFile, imageFile);
+        System.out.println("user controller :" + savedUser);
 
-        return new ResponseEntity<>(savedMarque, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/updatePassword")
@@ -76,6 +77,12 @@ public class UserController {
     @Operation(summary="Lister utilisateur en fonction du role")
     public ResponseEntity<List<User>> getAllByRole(String libelleRole){
         return new ResponseEntity<>(userService.findAllByRole(libelleRole), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllUserById/{id}")
+    @Operation(summary="Lister utilisateur par id")
+    public ResponseEntity<Optional<User>> getAllById(@PathVariable Long idUser){
+        return new ResponseEntity<>(userService.findById(idUser), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
