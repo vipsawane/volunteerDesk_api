@@ -58,4 +58,12 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "idCandidature")
     private Candidature candidature;
+
+    @OneToMany(mappedBy = "user")
+    private List<Publication> publications;
+
+    @OneToMany(mappedBy = "user")
+    private List<Ressource> ressources;
+
+
 }

@@ -26,6 +26,10 @@ public class Message {
     private User user;
 
     @ManyToOne
+    @JoinColumn(name="idOrganisation")
+    private Organisation organisation;
+
+    @ManyToOne
     @JoinColumn(name = "idStatutMessage")
     private StatutMessage statutMessage;
 

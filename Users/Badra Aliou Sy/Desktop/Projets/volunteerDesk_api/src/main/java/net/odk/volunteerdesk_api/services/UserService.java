@@ -199,6 +199,8 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    
+
     public User updatePassWord(Long id, String newPassWord) throws Exception {
         Optional<User> userOpt = userRepository.findById(id);
 

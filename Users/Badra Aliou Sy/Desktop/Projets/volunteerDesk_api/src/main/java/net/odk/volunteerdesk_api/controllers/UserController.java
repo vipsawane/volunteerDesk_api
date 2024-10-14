@@ -22,9 +22,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/addUser")
+    @PostMapping("/createUser")
     @Operation(summary = "Ajouter utilisateur")
-    public ResponseEntity<User> create(
+    public ResponseEntity<User> createUser(
             @Valid @RequestParam("user") String userString,
             @RequestParam(value = "photoUser", required = false) MultipartFile imageFile1,
             @RequestParam(value = "photoCarteIdentite", required = false) MultipartFile imageFile)

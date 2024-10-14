@@ -52,6 +52,10 @@ public class Organisation{
     @JoinColumn(name = "idCandidature")
     private Candidature candidature;
 
+    @OneToMany(mappedBy = "organisation")
+    @JsonIgnore
+    private List<Message> messages;
+
 
 
 }

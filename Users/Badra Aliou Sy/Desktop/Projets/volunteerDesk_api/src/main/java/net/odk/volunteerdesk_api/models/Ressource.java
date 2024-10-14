@@ -21,12 +21,22 @@ public class Ressource {
     private String contenuRessource;
     private int likeRessource;
 
-//    @OneToMany(mappedBy = "ressource")
-//    @JsonIgnore
-//    private List<Like> like;
+
+
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "idOrganisation")
+    private Organisation organisation;
 
     @OneToMany(mappedBy = "ressource")
     @JsonIgnore
     private List<Commentaire> commentaire;
+
+
+
+
 
 }

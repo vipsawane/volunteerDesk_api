@@ -28,4 +28,14 @@ public class Publication {
     @OneToMany(mappedBy = "publication")
     @JsonIgnore
     private List<Commentaire> commentaire;
+
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "idOrganisation")
+    private Organisation organisation;
+
+
 }

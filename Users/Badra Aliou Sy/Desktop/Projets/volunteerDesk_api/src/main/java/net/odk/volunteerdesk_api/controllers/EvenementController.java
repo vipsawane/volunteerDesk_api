@@ -24,7 +24,7 @@ public class EvenementController {
 
     @PostMapping("/addEvenement")
     @Operation(summary = "Ajouter evenement")
-    public ResponseEntity<Evenement> create(
+    public ResponseEntity<Evenement> createEvenement(
             @Valid @RequestParam("evenement") String eventString,
             @RequestParam(value = "image", required = false) MultipartFile imageFile)
             throws Exception {
@@ -43,7 +43,7 @@ public class EvenementController {
 
     @PutMapping("/update/{id}")
     @Operation(summary="Modifier evenement")
-    public ResponseEntity<Evenement> updateEvent(
+    public ResponseEntity<Evenement> updateEvenement(
             @Valid @RequestParam("evenement") String eventString,
             @PathVariable Long id,
             @RequestParam(value = "image", required = false) MultipartFile imageFile)
