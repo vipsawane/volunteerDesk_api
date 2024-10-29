@@ -1,5 +1,6 @@
 package net.odk.volunteerdesk_api.services;
 
+import net.odk.volunteerdesk_api.models.Sanction;
 import net.odk.volunteerdesk_api.models.StatutMessage;
 import net.odk.volunteerdesk_api.repositories.StatutMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,14 @@ public class StatutMessageService {
 
     public void deleteById(Long id) {
         statutMessageRepository.deleteById(id);
+    }
+
+
+    public StatutMessage findAllById(Long id) {
+        StatutMessage statutMessage =  statutMessageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun statut de message trouvé"));
+        return statutMessage;
+    }
+
+    {
     }
 }

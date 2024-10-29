@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import net.odk.volunteerdesk_api.models.Organisation;
-import net.odk.volunteerdesk_api.models.User;
 import net.odk.volunteerdesk_api.services.OrganisationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +22,9 @@ public class OrganisationController {
     @Autowired
     private OrganisationService organisationService;
 
-    @PostMapping("/addOrganisation")
+    @PostMapping("/createOrganisation")
     @Operation(summary = "Ajouter organisation")
-    public ResponseEntity<Organisation> create(
+    public ResponseEntity<Organisation> createOrganisation(
             @Valid @RequestParam("organisation") String organisationString,
             @RequestParam(value = "logo", required = false) MultipartFile logo)
             throws Exception {
@@ -41,7 +40,7 @@ public class OrganisationController {
 
         return new ResponseEntity<>(savedOrganisation, HttpStatus.CREATED);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateOrganisation/{id}")
     @Operation(summary = "Modifier organisation")
     public ResponseEntity<Organisation> updateOrganisation(
             @Valid @RequestParam("organisation") String organisationString,
@@ -62,34 +61,41 @@ public class OrganisationController {
     }
 
     @PutMapping("/{id}/updatePassword")
-    public Organisation updateOrganisation(@PathVariable Long id, @RequestParam String password) throws Exception {
+    public Organisation updatePassword(@PathVariable Long id, @RequestParam String password) throws Exception {
         return organisationService.updatePassWord(id, password);
     }
     @GetMapping("/getAllOrganisation")
     @Operation(summary="Lister toutes les Organisations")
-    public ResponseEntity<List<Organisation>> getAll(){
+    public ResponseEntity<List<Organisation>> getAllOrganisation(){
         return new ResponseEntity<>(organisationService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllOrganisationById/{id}")
+    @GetMapping("/getOrganisationById/{id}")
     @Operation(summary="Lister organisation par id")
-    public ResponseEntity<Optional<Organisation>> getAllById(@PathVariable Long idOrganisation){
+    public ResponseEntity<Optional<Organisation>> getOrganisationById(@PathVariable Long idOrganisation){
         return new ResponseEntity<>(organisationService.findById(idOrganisation), HttpStatus.OK);
     }
 
-    public ResponseEntity<Organisation> getOrganisationById(@PathVariable Long idOrganisation) {
+   /* public ResponseEntity<Organisation> getOrganisationById(@PathVariable Long idOrganisation) {
         Optional<Organisation> organisation = organisationService.findById(idOrganisation);
         return organisation
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+    }*/
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteOrganisation/{id}")
     @Operation(summary = "Supprimer organisation")
     public ResponseEntity<Void> deleteOrganisation(@PathVariable Long id) {
         organisationService.deleteById(id);
         return  new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/connexion")
+    @Operation(summary = "Connexion")
+    public Organisation connexion(@RequestParam("email")  String email,
+                                  @RequestParam("password")  String password) {
+        return organisationService.connexion(email, password);
     }
 
 }

@@ -20,11 +20,7 @@ public class DetailsEvenementService {
     public DetailsEvenement update(DetailsEvenement de , Long id){
 
         DetailsEvenement detailsEvenement = detailsEvenementRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun détails trouvé"));
-        detailsEvenement.setDateDebutEvenement(detailsEvenement.getDateDebutEvenement());
-        detailsEvenement.setDateFinEvenement(detailsEvenement.getDateFinEvenement());
-        detailsEvenement.setLieuEvenement(detailsEvenement.getLieuEvenement());
         detailsEvenement.setNbrCandidat(detailsEvenement.getNbrCandidat());
-        detailsEvenement.setOrganisateur(detailsEvenement.getOrganisateur());
         detailsEvenement.setParticipation(detailsEvenement.getParticipation());
 
         return detailsEvenementRepository.save(de);

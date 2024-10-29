@@ -21,6 +21,7 @@ public class User {
 
     private String nomUser;
     private String prenomUser;
+    private String genre;
     @Column(nullable = false)
     private String photoUser;
     @Column(nullable = false)
@@ -33,6 +34,7 @@ public class User {
     private Date dateNaissance;
     @Column(nullable = false, unique = true)
     private String numCarteIdentite;
+    @Column(nullable = false)
     private String photoCarteIdentite;
     private String competences;
     private int anneeExperience;

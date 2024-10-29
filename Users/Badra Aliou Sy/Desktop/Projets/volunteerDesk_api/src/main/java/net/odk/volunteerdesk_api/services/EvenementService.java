@@ -4,11 +4,7 @@ import net.odk.volunteerdesk_api.models.Evenement;
 import net.odk.volunteerdesk_api.repositories.EvenementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -17,9 +13,9 @@ public class EvenementService {
     @Autowired
     private EvenementRepository evenementRepository;
 
-    public Evenement save(Evenement evenement, MultipartFile photo) throws Exception {
+    public Evenement save(Evenement evenement) throws Exception {
 
-        //image
+        /*//image
         if (photo != null) {
             String location = "C:\\xampp\\htdocs\\photo";
             try {
@@ -47,24 +43,30 @@ public class EvenementService {
                         }
                     } catch (Exception e) {
                         throw new Exception("Impossible de télécharger l\'image");
-                    }
-                }
+                    }*/
+               /* }
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-        }
+        }*/
         return evenementRepository.save(evenement);
     }
 
-    public Evenement update(Evenement e, Long id , MultipartFile photo ) throws Exception{
+    public Evenement update(Evenement evenement, Long id ) throws Exception{
         Evenement ev = evenementRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun evenement trouvé"));
-        ev.setLibelle(e.getLibelle());
-        ev.setDescription(e.getDescription());
-        e.setNbrPoste(e.getNbrPoste());
+        ev.setLibelle(evenement.getLibelle());
+        ev.setDescription(evenement.getDescription());
+        ev.setDateDebutEvenement(evenement.getDateDebutEvenement());
+        ev.setDateFinEvenement(evenement.getDateFinEvenement());
+        ev.setHeureDebutEvenement(evenement.getHeureDebutEvenement());
+        ev.setHeureFinEvenement(evenement.getHeureFinEvenement());
+        ev.setOrganisateur(evenement.getOrganisateur());
+        ev.setTypeEvenement(evenement.getTypeEvenement());
+        ev.setLieuEvenement(evenement.getLieuEvenement());
+        ev.setNbrPoste(evenement.getNbrPoste());
+        ev.setTypeEvenement(evenement.getTypeEvenement());
 
-
-
-        //image
+        /*//image
         if (photo != null) {
             String location = "C:\\xampp\\htdocs\\photo";
             try {
@@ -98,7 +100,7 @@ public class EvenementService {
                 throw new Exception(x.getMessage());
             }
         }
-
+*/
         return evenementRepository.save(ev);
     }
 
@@ -116,4 +118,9 @@ public class EvenementService {
         evenementRepository.deleteById(id);
     }
 
+
+
+   /* public String findByType(String typeEvenement) {
+        return typeEvenement;
+    }*/
 }

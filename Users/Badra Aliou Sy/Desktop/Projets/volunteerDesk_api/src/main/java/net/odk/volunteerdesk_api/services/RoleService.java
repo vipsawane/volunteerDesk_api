@@ -1,6 +1,7 @@
 package net.odk.volunteerdesk_api.services;
 
 import net.odk.volunteerdesk_api.models.Role;
+import net.odk.volunteerdesk_api.models.Sanction;
 import net.odk.volunteerdesk_api.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class RoleService {
 
     // Méthode pour créer sauvegarder un role
     public Role save(Role role) {
+        if (roleRepository.existsByLibelleRole(role.getLibelleRole())) {
+            throw new IllegalStateException("Le rôle avec ce libellé existe déjà");
+        }
         return roleRepository.save(role);
     }
 
@@ -32,7 +36,7 @@ public class RoleService {
     }
 
     public Role getById(Long id){
-        Role role = roleRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun role trouvé") );
+        Role role = roleRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun role trouvé corespondant à: " + id) );
         return role;
     }
 
@@ -41,6 +45,10 @@ public class RoleService {
         roleRepository.deleteById(id);
     }
 
+    public Role findById(Long idRole) {
+        Role role =  roleRepository.findById(idRole).orElseThrow(() -> new IllegalStateException("Aucun role trouvé"));
+        return role;
+    }
 }
 
 

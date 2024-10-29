@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/detailsEvent")
+@RequestMapping("/detailsEvenement")
 public class DetailsEvenementController {
 
     @Autowired
     DetailsEvenementService detailsEvenementService;
 
-    @PostMapping("/addDetailsEvenement")
+    @PostMapping("/createDetailsEvenement")
     @Operation(summary="Ajouter  DetailsEvenement")
     public ResponseEntity<DetailsEvenement> createDetailsEvenement(@RequestBody DetailsEvenement detailsEvenement) {
         return new ResponseEntity<>(detailsEvenementService.save(detailsEvenement) , HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateDetailsEvenement/{id}")
     @Operation(summary="Modifier DetailsEvenement")
     public ResponseEntity<DetailsEvenement> updateDetailsEvenement(@PathVariable Long id, @RequestBody DetailsEvenement DetailsEvenement) {
         return new ResponseEntity<>(detailsEvenementService.update(DetailsEvenement, id), HttpStatus.OK);
@@ -31,17 +31,17 @@ public class DetailsEvenementController {
 
     @GetMapping("/getAllDetailsEvenement")
     @Operation(summary="Lister tous les DetailsEvenement")
-    public ResponseEntity<List<DetailsEvenement>> getAll(){
+    public ResponseEntity<List<DetailsEvenement>> getAllDetailsEvenement(){
         return new ResponseEntity<>(detailsEvenementService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllById")
+    @GetMapping("/getAllDetailsEvenementById")
     @Operation(summary="Lister DetailsEvenement par id")
-    public ResponseEntity<DetailsEvenement> getAllById(@PathVariable Long idDetailsEvenement){
+    public ResponseEntity<DetailsEvenement> getDetailsEvenementById(@PathVariable Long idDetailsEvenement){
         return new ResponseEntity<>(detailsEvenementService.findById(idDetailsEvenement), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteDetailsEvenement/{id}")
     @Operation(summary = "Supprimer un DetailsEvenement")
     public ResponseEntity<Void> deleteDetailsEvenement(@PathVariable("id") Long id) {
         detailsEvenementService.deleteById(id);

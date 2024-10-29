@@ -1,7 +1,6 @@
 package net.odk.volunteerdesk_api.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import net.odk.volunteerdesk_api.models.Ressource;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,67 +21,43 @@ public class RessourceController {
     @Autowired
     private CandidatureService candidatureService;
 
-    @PostMapping("/addRessource")
+    @PostMapping("/createRessource")
     @Operation(summary = "Ajouter une Ressource")
-    public ResponseEntity<Ressource> create(
-            @Valid @RequestParam("ressource") String eventString,
-            @RequestParam(value = "image", required = false) MultipartFile imageFile)
-            throws Exception {
-        Ressource ev = new Ressource();
-        try {
-            ev = new JsonMapper().readValue(eventString, Ressource.class);
-        } catch (JsonProcessingException e) {
-            throw new Exception(e.getMessage());
-        }
-
-        Ressource saved = ressourceService.creerRessource(ev, imageFile);
+    public ResponseEntity<Ressource> createRessource(@RequestBody Ressource evenement){
+        Ressource saved = ressourceService.creerRessource(evenement);
         System.out.println("Ressource controller :" + saved);
 
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateRessource/{id}")
     @Operation(summary="Modifier une ressource")
-    public ResponseEntity<Ressource> updateEvent(
-            @Valid @RequestParam("ressource") String eventString,
-            @PathVariable Long id,
-            @RequestParam(value = "image", required = false) MultipartFile imageFile)
-            throws Exception {
-        Ressource ev = new Ressource();
-        try {
-            ev = new JsonMapper().readValue(eventString, Ressource.class);
-        } catch (JsonProcessingException e) {
-            throw new Exception(e.getMessage());
-        }
-
-        Ressource saved = ressourceService.update(ev, id, imageFile);
-        System.out.println("Ressource controller :" + saved);
-
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    public ResponseEntity<Ressource> updateRessource(@RequestBody Ressource ressource, @PathVariable Long id) {
+        return new ResponseEntity<>(ressourceService.update(ressource, id), HttpStatus.OK);
     }
 
     @GetMapping("/getAllRessource")
     @Operation(summary="Lister toutes les Ressource")
-    public ResponseEntity<List<Ressource>> getAll(){
+    public ResponseEntity<List<Ressource>> getAllRessource(){
         return new ResponseEntity<>(ressourceService.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/like/{id}")
+    @PutMapping("/likeRessource/{id}")
     @Operation(summary="Liker une ressource")
     public ResponseEntity<Ressource> likeRessource(@PathVariable Long idRessource) throws Exception{
         return new ResponseEntity<>(ressourceService.updateLike(idRessource), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllById")
+    @GetMapping("/getAllRessourceById")
     @Operation(summary="Lister Ressource par id")
-    public ResponseEntity<Ressource> getAllById(@PathVariable Long idRessource){
+    public ResponseEntity<Ressource> getRessourceById(@PathVariable Long idRessource){
         return new ResponseEntity<>(ressourceService.findById(idRessource), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteRessource/{id}")
     @Operation(summary = "Supprimer ressource")
-    public ResponseEntity<Void> deleteRessource(@PathVariable("id") Long id) {
-        candidatureService.deleteById(id);
+    public ResponseEntity<Void> deleteRessource(@PathVariable("id") Long idResource) {
+        ressourceService.deleteById(idResource);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 }

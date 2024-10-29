@@ -80,7 +80,7 @@ public class OrganisationService {
         org.setLogo(organisation.getLogo());
         org.setRaisonSocial(organisation.getRaisonSocial());
         org.setSiege(organisation.getSiege());
-        org.setEmailOrganisation(organisation.getEmailOrganisation());
+        org.setEmail(organisation.getEmail());
         org.setAdresse(organisation.getAdresse());
 
 
@@ -146,8 +146,8 @@ public class OrganisationService {
         }
     }
 
-    public Organisation connexion(String emailOrganisation, String password){
-        Organisation organisation = organisationRepository.findByemailOrganisation(emailOrganisation);
+    public Organisation connexion(String email, String password){
+        Organisation organisation = organisationRepository.findByEmail(email);
         if (organisation == null || !passwordEncoder.matches(password, organisation.getMotDePasse())) {
             throw new EntityNotFoundException("Email ou mot de passe incorrect");
         }

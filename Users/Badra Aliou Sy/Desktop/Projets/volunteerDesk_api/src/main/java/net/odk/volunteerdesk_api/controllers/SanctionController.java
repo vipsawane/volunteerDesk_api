@@ -16,14 +16,14 @@ public class SanctionController {
     @Autowired
     private SanctionService sanctionService;
 
-    @PostMapping("/addSanction")
+    @PostMapping("/createSanction")
     @Operation(summary="Créer Sanction")
     public ResponseEntity<Sanction> createSanction(@RequestBody Sanction sanction) {
         System.out.println(sanction.toString());
         return new ResponseEntity<>(sanctionService.save(sanction) , HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateSanction/{id}")
     @Operation(summary="Modifier sanction")
     public ResponseEntity<Sanction> updateSanction(@PathVariable Long id, @RequestBody Sanction sanction) {
         return new ResponseEntity<>(sanctionService.update(sanction, id), HttpStatus.OK);
@@ -31,17 +31,17 @@ public class SanctionController {
 
     @GetMapping("/getAllSanction")
     @Operation(summary="Lister toutes les Sanctions")
-    public ResponseEntity<List<Sanction>> getAll(){
+    public ResponseEntity<List<Sanction>> getAllSanction(){
         return new ResponseEntity<>(sanctionService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getAllSanctionById")
     @Operation(summary=" Lister Sanction par id")
-    public ResponseEntity<Sanction> getAllById(@PathVariable Long idSanction){
+    public ResponseEntity<Sanction> getSanctionById(@PathVariable Long idSanction){
         return new ResponseEntity<>(sanctionService.findById(idSanction), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteSanction/{id}")
     public ResponseEntity<Void> deleteSanction(@PathVariable("id") Long id) {
         sanctionService.deleteById(id);
         return  new ResponseEntity<>(HttpStatus.OK);

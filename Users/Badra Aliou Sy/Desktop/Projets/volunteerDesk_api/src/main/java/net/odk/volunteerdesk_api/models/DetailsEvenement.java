@@ -17,20 +17,15 @@ public class DetailsEvenement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDetailsEvenement;
 
-    private String lieuEvenement;
 
-    private String dateDebutEvenement;
 
-    private String dateFinEvenement;
-
-    private Boolean participation;
+    private Boolean participation = true;
 
     @Column(nullable = false)
     private int nbrCandidat;
 
-    private String organisateur;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String Formateur;
 
     @OneToOne

@@ -25,6 +25,10 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
+    public User creer(User user){
+        return userRepository.save(user);
+    }
+
     public User save(User user  , MultipartFile photo1, MultipartFile photo2) throws Exception {
         String passWordHasher = passwordEncoder.encode(user.getMotDePasse());
         user.setMotDePasse(passWordHasher);
@@ -100,11 +104,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User update(User user  ,Long id, MultipartFile photo1, MultipartFile photo2) throws Exception {
+    public User updateUser(User user  ,Long id, MultipartFile photo1, MultipartFile photo2) throws Exception {
         User u = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun user trouvé"));
 
         u.setNomUser(user.getNomUser());
         u.setPrenomUser(user.getPrenomUser());
+        u.setGenre(user.getGenre());
         u.setDescription(user.getDescription());
         u.setEmail(user.getEmail());
         u.setTelephone(user.getTelephone());
@@ -188,18 +193,18 @@ public class UserService {
     }
 
 
-    public List<User> findAllByRole(String role){
+    public List<User> findAllUserByRole(String role){
         return userRepository.findAllByRole_libelleRole(role);
     }
-    public List<User> findAll(){
+    public List<User> findAllUser(){
         return userRepository.findAll();
     }
 
-    public Optional<User> findById(Long id) {
+    public Optional<User> findAllUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    
+
 
     public User updatePassWord(Long id, String newPassWord) throws Exception {
         Optional<User> userOpt = userRepository.findById(id);
@@ -224,7 +229,7 @@ public class UserService {
         return user;
     }
 
-    public void deleteById(Long id) {
+    public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 

@@ -27,12 +27,25 @@ public class Evenement {
 
     private String nbrPoste;
 
-    @Column(nullable = false)
-    private String photo;
+    private String lieuEvenement;
 
-    @ManyToOne
-    @JoinColumn(name = "idTypeEvenement")
-    private TypeEvenement typeEvenement;
+    private String dateDebutEvenement;
+
+    private String dateFinEvenement;
+
+    private String heureDebutEvenement;
+
+    private String heureFinEvenement;
+
+    private String organisateur;
+
+    private String typeEvenement;
+
+
+    /*@Column(nullable = true)
+    private String photo;*/
+
+
 
     @OneToOne
     @JsonIgnore

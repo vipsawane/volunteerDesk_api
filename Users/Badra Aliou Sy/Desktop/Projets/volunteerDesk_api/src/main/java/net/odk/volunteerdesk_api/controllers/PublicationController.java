@@ -21,9 +21,9 @@ public class PublicationController {
     @Autowired
     private PublicationService publicationService;
 
-    @PostMapping("/addPublication")
+    @PostMapping("/createPublication")
     @Operation(summary = "Ajouter Publication")
-    public ResponseEntity<Publication> create(
+    public ResponseEntity<Publication> createPublication(
             @Valid @RequestParam("publication") String eventString,
             @RequestParam(value = "image", required = false) MultipartFile imageFile)
             throws Exception {
@@ -40,9 +40,9 @@ public class PublicationController {
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/updatePublication/{id}")
     @Operation(summary="Modifier publication")
-    public ResponseEntity<Publication> updateEvent(
+    public ResponseEntity<Publication> updatePublication(
             @Valid @RequestParam("publication") String eventString,
             @PathVariable Long id,
             @RequestParam(value = "image", required = false) MultipartFile imageFile)
@@ -62,23 +62,23 @@ public class PublicationController {
 
     @GetMapping("/getAllPublication")
     @Operation(summary="Lister toutes les Publications")
-    public ResponseEntity<List<Publication>> getAll(){
+    public ResponseEntity<List<Publication>> getAllPublication(){
         return new ResponseEntity<>(publicationService.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/like/{id}")
+    @PutMapping("/likePublication/{id}")
     @Operation(summary="Liker une Publication")
-    public ResponseEntity<Publication> likePub(@PathVariable Long idPublication) throws Exception{
+    public ResponseEntity<Publication> likePublication(@PathVariable Long idPublication) throws Exception{
         return new ResponseEntity<>(publicationService.updateLike(idPublication), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllById")
+    @GetMapping("/getPublicationById")
     @Operation(summary="Lister Publication par id")
-    public ResponseEntity<Publication> getAllById(@PathVariable Long idPublication){
+    public ResponseEntity<Publication> getPublicationById(@PathVariable Long idPublication){
         return new ResponseEntity<>(publicationService.findById(idPublication), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deletePublication/{id}")
     @Operation(summary = "Supprimer publication")
     public ResponseEntity<Void> deletePublication(@PathVariable("id") Long id) {
         publicationService.deleteById(id);

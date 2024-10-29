@@ -41,7 +41,13 @@ public class UserController {
 
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
-    @PutMapping("/update/{id}")
+
+    @PostMapping("creer")
+            public User creer(@RequestBody User user){
+        return userService.creer(user);
+    }
+
+    @PutMapping("/updateUser/{id}")
     @Operation(summary = "Modifier utilisateur")
     public ResponseEntity<User> updateUser(
             @Valid @RequestParam("user") String userString,
@@ -56,7 +62,7 @@ public class UserController {
             throw new Exception(e.getMessage());
         }
 
-        User savedUser = userService.update(user, id, imageFile, imageFile);
+        User savedUser = userService.updateUser(user, id, imageFile1, imageFile);
         System.out.println("user controller :" + savedUser);
 
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
@@ -69,32 +75,31 @@ public class UserController {
 
     @GetMapping("/getAllUser")
     @Operation(summary="Lister tous les utilisateurs")
-    public ResponseEntity<List<User>> getAll(){
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<User>> getAllUser(){
+        return new ResponseEntity<>(userService.findAllUser(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllUserByRole/{libelleRole}")
+    @GetMapping("/getUserByRole/{libelleRole}")
     @Operation(summary="Lister utilisateur en fonction du role")
-    public ResponseEntity<List<User>> getAllByRole(String libelleRole){
-        return new ResponseEntity<>(userService.findAllByRole(libelleRole), HttpStatus.OK);
+    public ResponseEntity<List<User>> getUserByRole(String libelleRole){
+        return new ResponseEntity<>(userService.findAllUserByRole(libelleRole), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllUserById/{id}")
     @Operation(summary="Lister utilisateur par id")
-    public ResponseEntity<Optional<User>> getAllById(@PathVariable Long idUser){
-        return new ResponseEntity<>(userService.findById(idUser), HttpStatus.OK);
+    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long idUser){
+        return new ResponseEntity<>(userService.findAllUserById(idUser), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "Supprimer utilisateur")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-        userService.deleteById(id);
+        userService.deleteUserById(id);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/login")
+    @GetMapping("/connexion")
     @Operation(summary = "Connexion")
-    public User connexions(@RequestParam("email")  String email,
+    public User connexion(@RequestParam("email")  String email,
                            @RequestParam("password")  String password) {
         return userService.connexion(email, password);
     }

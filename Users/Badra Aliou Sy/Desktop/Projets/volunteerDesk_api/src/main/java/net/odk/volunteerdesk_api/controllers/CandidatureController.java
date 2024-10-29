@@ -18,14 +18,14 @@ public class CandidatureController {
     @Autowired
     private CandidatureService candidatureService;
 
-    @PostMapping("/addCandidature")
+    @PostMapping("/createCandidature")
     @Operation(summary="Ajouter une candidature")
     public ResponseEntity<Candidature> createCandidature(@RequestBody Candidature candidature) {
         System.out.println(candidature.toString());
         return new ResponseEntity<>(candidatureService.save(candidature) , HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateCandidature/{id}")
     @Operation(summary="Modifier une candidature")
     public ResponseEntity<Candidature> updateCandidature(@PathVariable Long id, @RequestBody Candidature candidature) {
         return new ResponseEntity<>(candidatureService.update(candidature, id), HttpStatus.OK);
@@ -33,17 +33,17 @@ public class CandidatureController {
 
     @GetMapping("/getAllCandidature")
     @Operation(summary="Lister toutes les candidature")
-    public ResponseEntity<List<Candidature>> getAll(){
+    public ResponseEntity<List<Candidature>> getAllCandidature(){
         return new ResponseEntity<>(candidatureService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getCandidatureById")
     @Operation(summary="Lister candidature par id")
-    public ResponseEntity<Candidature> getAllById(@PathVariable Long idCandidature){
+    public ResponseEntity<Candidature> getAllCandidatureById(@PathVariable Long idCandidature){
         return new ResponseEntity<>(candidatureService.findById(idCandidature), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteCandidature/{id}")
     @Operation(summary = "Supprimer une candidature")
     public ResponseEntity<Void> deleteCandidature(@PathVariable("id") Long id) {
         candidatureService.deleteById(id);

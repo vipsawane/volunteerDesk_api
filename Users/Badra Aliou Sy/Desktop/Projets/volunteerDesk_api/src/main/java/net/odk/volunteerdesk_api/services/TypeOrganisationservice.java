@@ -1,8 +1,6 @@
 package net.odk.volunteerdesk_api.services;
 
-import net.odk.volunteerdesk_api.models.TypeEvenement;
 import net.odk.volunteerdesk_api.models.TypeOrganisation;
-import net.odk.volunteerdesk_api.repositories.TypeEvenementRepository;
 import net.odk.volunteerdesk_api.repositories.TypeOrganisationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +19,7 @@ public class TypeOrganisationservice {
     }
 
     public TypeOrganisation update(TypeOrganisation typeOrganisation, Long id) {
-        TypeOrganisation to = typeOrganisationRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun role trouvé") );
+        TypeOrganisation to = typeOrganisationRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun type d'organisation  trouvé") );
 
         to.setLibelleTypeOrganisation(typeOrganisation.getLibelleTypeOrganisation());
 
@@ -43,6 +41,11 @@ public class TypeOrganisationservice {
         typeOrganisationRepository.deleteById(id);
     }
 
+    public TypeOrganisation findById(Long idTypeOrganisation) {
+
+        TypeOrganisation typeOrganisation = typeOrganisationRepository.findById(idTypeOrganisation).orElseThrow(() -> new IllegalStateException("Aucun type d'organisation trouvé"));
+        return typeOrganisation;
+    }
 }
 
 

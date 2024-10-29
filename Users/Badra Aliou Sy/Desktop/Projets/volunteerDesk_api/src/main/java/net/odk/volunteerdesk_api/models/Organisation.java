@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,7 @@ public class Organisation{
     private String raisonSocial;
     private String logo;
     private String description;
-    private String emailOrganisation;
+    private String email;
     private String contact;
     private String adresse;
     private String siege;
@@ -55,7 +54,6 @@ public class Organisation{
     @OneToMany(mappedBy = "organisation")
     @JsonIgnore
     private List<Message> messages;
-
 
 
 }

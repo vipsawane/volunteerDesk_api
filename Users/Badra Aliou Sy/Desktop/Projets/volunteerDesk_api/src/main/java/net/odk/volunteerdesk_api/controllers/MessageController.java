@@ -25,7 +25,7 @@ public class MessageController {
 
     @PostMapping("/addMessage")
     @Operation(summary = "Ajouter un  Message")
-    public ResponseEntity<Message> create(
+    public ResponseEntity<Message> createMessage(
             @Valid @RequestParam("message") String eventString,
             @RequestParam(value = "image", required = false) MultipartFile imageFile)
             throws Exception {
@@ -42,9 +42,9 @@ public class MessageController {
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateMessage/{id}")
     @Operation(summary="Modifier un message")
-    public ResponseEntity<Message> updateEvent(
+    public ResponseEntity<Message> updateMessage(
             @Valid @RequestParam("Message") String eventString,
             @PathVariable Long id,
             @RequestParam(value = "image", required = false) MultipartFile imageFile)
@@ -64,13 +64,13 @@ public class MessageController {
 
     @GetMapping("/getAllMessage")
     @Operation(summary="Lister  tous les Messages")
-    public ResponseEntity<List<Message>> getAll(){
+    public ResponseEntity<List<Message>> getAllMessage(){
         return new ResponseEntity<>(messageService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllById")
+    @GetMapping("/getAllMessageById")
     @Operation(summary="Lister message par id")
-    public ResponseEntity<Message> getAllById(@PathVariable Long idMessage){
+    public ResponseEntity<Message> getMessageById(@PathVariable Long idMessage){
         return new ResponseEntity<>(messageService.findById(idMessage), HttpStatus.OK);
     }
 
