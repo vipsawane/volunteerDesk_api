@@ -25,4 +25,8 @@ public class Role {
     @JsonIgnore
     private List<User> user;
 
+    @OneToMany(mappedBy = "role")
+    @JsonIgnore
+    private List<Organisation> organisations;
+
 }

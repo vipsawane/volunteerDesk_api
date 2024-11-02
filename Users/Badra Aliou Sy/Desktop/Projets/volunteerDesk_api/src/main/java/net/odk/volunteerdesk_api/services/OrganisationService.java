@@ -25,8 +25,8 @@ public class OrganisationService {
     BCryptPasswordEncoder passwordEncoder;
 
     public Organisation save(Organisation organisation  , MultipartFile logo) throws Exception {
-        String passWordHasher = passwordEncoder.encode(organisation.getMotDePasse());
-        organisation.setMotDePasse(passWordHasher);
+        String passWordHasher = passwordEncoder.encode(organisation.getPassword());
+        organisation.setPassword(passWordHasher);
         //image
         if (logo != null) {
             String location = "C:\\laragon\\photo";
@@ -75,13 +75,14 @@ public class OrganisationService {
         org.setDescription(organisation.getDescription());
         org.setNumeroIdentification(organisation.getNumeroIdentification());
         org.setDomaineActivite(organisation.getDomaineActivite());
-        org.setMotDePasse(org.getMotDePasse());
+        org.setPassword(organisation.getPassword());
         org.setSanction(organisation.getSanction());
         org.setLogo(organisation.getLogo());
         org.setRaisonSocial(organisation.getRaisonSocial());
         org.setSiege(organisation.getSiege());
         org.setEmail(organisation.getEmail());
         org.setAdresse(organisation.getAdresse());
+        org.setRole(organisation.getRole());
 
 
         //image
@@ -127,7 +128,7 @@ public class OrganisationService {
         return organisationRepository.findAll();
     }
 
-    public Optional<Organisation> findById(Long id) {
+    public Optional<Organisation> findOrganisationById(Long id) {
         return organisationRepository.findById(id);
     }
 
@@ -139,7 +140,7 @@ public class OrganisationService {
 
             // Hacher le nouveau mot de passe
             String hashedPassword = passwordEncoder.encode(newPassWord);
-            organisation.setMotDePasse(hashedPassword);
+            organisation.setPassword(hashedPassword);
             return organisationRepository.save(organisation);
         } else {
             throw new Exception("User non trouvé avec l'ID : " + id);
@@ -148,7 +149,7 @@ public class OrganisationService {
 
     public Organisation connexion(String email, String password){
         Organisation organisation = organisationRepository.findByEmail(email);
-        if (organisation == null || !passwordEncoder.matches(password, organisation.getMotDePasse())) {
+        if (organisation == null || !passwordEncoder.matches(password, organisation.getPassword())) {
             throw new EntityNotFoundException("Email ou mot de passe incorrect");
         }
         return organisation;

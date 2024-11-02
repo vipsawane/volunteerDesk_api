@@ -6,14 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor @NoArgsConstructor @Getter @Setter
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
@@ -26,7 +31,7 @@ public class User {
     private String photoUser;
     @Column(nullable = false)
     private String description;
-    private String motDePasse;
+    private String password;
     @Column(unique = true)
     private String email;
     @Column(unique = true)
@@ -40,6 +45,11 @@ public class User {
     private int anneeExperience;
     @Column(nullable = false)
     private int nbrSuspension;
+    @Column(nullable = false)
+    private Boolean isConnected;
+    @Column(nullable = false)
+    private Boolean actived;
+
 
     @ManyToOne
     @JoinColumn(name = "idRole")
@@ -68,4 +78,34 @@ public class User {
     private List<Ressource> ressources;
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return (Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+this.role.getLibelleRole())));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

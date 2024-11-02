@@ -1,5 +1,6 @@
 package net.odk.volunteerdesk_api.services;
 
+import net.odk.volunteerdesk_api.models.ResponseAuth;
 import net.odk.volunteerdesk_api.models.User;
 import net.odk.volunteerdesk_api.models.Organisation;
 import net.odk.volunteerdesk_api.repositories.UserRepository;
@@ -11,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-   @Autowired
+    @Autowired
     private final UserRepository userRepository;
-   @Autowired
+    @Autowired
     private final OrganisationRepository organisationRepository;
-   @Autowired
+    @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public AuthService(UserRepository userRepository,
@@ -26,21 +27,21 @@ public class AuthService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public Object authenticate(String email, String password) {
+    public ResponseAuth authenticate(String email, String password) {
         // Cherche d'abord dans les utilisateurs
         User user = userRepository.findByEmail(email);
-        if (user != null && bCryptPasswordEncoder.matches(password, user.getMotDePasse())) {
-            return user; // L'utilisateur est authentifié
-        }
 
+        if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            return new ResponseAuth(true, user, user.getRole()); // L'utilisateur est authentifié
+        }
 
         // Cherche ensuite dans les organisations
         Organisation organisation = organisationRepository.findByEmail(email);
-        if (organisation != null && bCryptPasswordEncoder.matches(password, organisation.getMotDePasse())) {
-            return organisation; // L'organisation est authentifiée
+        if (organisation != null && bCryptPasswordEncoder.matches(password, organisation.getPassword())) {
+            return new ResponseAuth(true, organisation, "ORGANISATION"); // L'organisation est authentifiée
         }
 
-        // Si ni l'utilisateur ni l'organisation ne sont trouvés, retourne null
-        return "Donnée incorrecte, veuillez réessayer";
+        // Si ni l'utilisateur ni l'organisation ne sont trouvés, retourne un échec
+        return new ResponseAuth(false, null, "Données incorrectes, veuillez réessayer");
     }
 }

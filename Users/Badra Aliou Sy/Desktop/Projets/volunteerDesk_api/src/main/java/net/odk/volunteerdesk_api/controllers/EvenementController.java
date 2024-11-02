@@ -40,6 +40,8 @@ public class EvenementController {
         return new ResponseEntity<>(evenementService.findAll(), HttpStatus.OK);
     }
 
+
+
     @GetMapping("/getEvenementById/{id}") // Mappage corrigé
     @Operation(summary = "Lister Evenement par id")
     public ResponseEntity<Evenement> getEvenementById(@PathVariable Long idEvenement) {

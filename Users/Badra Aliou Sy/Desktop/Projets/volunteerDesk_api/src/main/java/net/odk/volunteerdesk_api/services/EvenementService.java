@@ -14,6 +14,9 @@ public class EvenementService {
     private EvenementRepository evenementRepository;
 
     public Evenement save(Evenement evenement) throws Exception {
+        return evenementRepository.save(evenement);
+    }
+
 
         /*//image
         if (photo != null) {
@@ -49,8 +52,7 @@ public class EvenementService {
                 throw new Exception(e.getMessage());
             }
         }*/
-        return evenementRepository.save(evenement);
-    }
+
 
     public Evenement update(Evenement evenement, Long id ) throws Exception{
         Evenement ev = evenementRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun evenement trouvé"));
@@ -114,9 +116,13 @@ public class EvenementService {
         return e;
     }
 
+
+
     public void deleteById(Long id) {
         evenementRepository.deleteById(id);
     }
+
+
 
 
 

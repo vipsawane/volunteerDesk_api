@@ -11,23 +11,39 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig {
 
     @Bean
-    public WebMvcConfigurer corsConfig(){
+    public WebMvcConfigurer corsConfig() {
         return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(CorsRegistry registry){
-
-
+            public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
                         .allowedMethods(
                                 HttpMethod.GET.name(),
                                 HttpMethod.POST.name(),
                                 HttpMethod.PUT.name(),
-                                HttpMethod.DELETE.name()
+                                HttpMethod.DELETE.name(),
+                                HttpMethod.OPTIONS.name() // Ajoutez OPTIONS si nécessaire
                         )
                         .allowedHeaders(HttpHeaders.CONTENT_TYPE,
-                                HttpHeaders.AUTHORIZATION);
+                                HttpHeaders.AUTHORIZATION,
+                                HttpHeaders.ACCEPT)
+                        .allowCredentials(true); // Permettre les cookies et les authentifications
             }
         };
     }
 }
+
+    /*@Bean
+    public WebMvcConfigurer corsConfig() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("*") // Permet toutes les origines
+                        .allowedMethods("*") // Permet toutes les méthodes HTTP
+                        .allowedHeaders("*") // Permet tous les headers
+                        .allowCredentials(true); // Permet l'authentification
+            }
+        };
+}
+

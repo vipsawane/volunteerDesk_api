@@ -73,15 +73,8 @@ public class OrganisationController {
     @GetMapping("/getOrganisationById/{id}")
     @Operation(summary="Lister organisation par id")
     public ResponseEntity<Optional<Organisation>> getOrganisationById(@PathVariable Long idOrganisation){
-        return new ResponseEntity<>(organisationService.findById(idOrganisation), HttpStatus.OK);
+        return new ResponseEntity<>(organisationService.findOrganisationById(idOrganisation), HttpStatus.OK);
     }
-
-   /* public ResponseEntity<Organisation> getOrganisationById(@PathVariable Long idOrganisation) {
-        Optional<Organisation> organisation = organisationService.findById(idOrganisation);
-        return organisation
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }*/
 
 
     @DeleteMapping("/deleteOrganisation/{id}")

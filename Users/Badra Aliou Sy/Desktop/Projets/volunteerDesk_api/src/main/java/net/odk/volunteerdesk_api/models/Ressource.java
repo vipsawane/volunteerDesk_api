@@ -16,7 +16,6 @@ public class Ressource {
 
     private Long idRessource;
     @Column(nullable = false)
-//    private String imageRessource;
     private String libelleRessource;
     private String contenuRessource;
     private int likeRessource;

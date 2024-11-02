@@ -2,12 +2,25 @@ package net.odk.volunteerdesk_api.services;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import net.odk.volunteerdesk_api.models.AuthentificationDTO;
 import net.odk.volunteerdesk_api.models.User;
 
 import net.odk.volunteerdesk_api.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
@@ -18,20 +31,19 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
-     UserRepository userRepository;
+    UserRepository userRepository;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
-
-    public User creer(User user){
+    public User creer(User user) {
         return userRepository.save(user);
     }
 
-    public User save(User user  , MultipartFile photo1, MultipartFile photo2) throws Exception {
-        String passWordHasher = passwordEncoder.encode(user.getMotDePasse());
-        user.setMotDePasse(passWordHasher);
+    public User save(User user, MultipartFile photo1, MultipartFile photo2) throws Exception {
+        String passWordHasher = passwordEncoder.encode(user.getPassword());
+        user.setPassword(passWordHasher);
         //image
         if (photo1 != null) {
             String location = "C:\\laragon\\photo";
@@ -104,7 +116,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user  ,Long id, MultipartFile photo1, MultipartFile photo2) throws Exception {
+    public User updateUser(User user, Long id, MultipartFile photo1, MultipartFile photo2) throws Exception {
         User u = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("Aucun user trouvé"));
 
         u.setNomUser(user.getNomUser());
@@ -119,6 +131,9 @@ public class UserService {
         u.setCompetences(user.getCompetences());
         u.setAnneeExperience(user.getAnneeExperience());
         u.setNbrSuspension(user.getNbrSuspension());
+        if (user.getRole() != null) {
+            u.setRole(user.getRole());
+        }
 
         //image
         if (photo1 != null) {
@@ -193,17 +208,17 @@ public class UserService {
     }
 
 
-    public List<User> findAllUserByRole(String role){
-        return userRepository.findAllByRole_libelleRole(role);
+    public List<User> findUserByRole(String role) {
+        return userRepository.findUserByRole_libelleRole(role);
     }
-    public List<User> findAllUser(){
+
+    public List<User> findAllUser() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findAllUserById(Long id) {
+    public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
-
 
 
     public User updatePassWord(Long id, String newPassWord) throws Exception {
@@ -214,23 +229,34 @@ public class UserService {
 
             // Hacher le nouveau mot de passe
             String hashedPassword = passwordEncoder.encode(newPassWord);
-            user.setMotDePasse(hashedPassword);
+            user.setPassword(hashedPassword);
             return userRepository.save(user);
         } else {
             throw new Exception("User non trouvé avec l'ID : " + id);
         }
     }
 
-    public User connexion(String email, String password){
+    /*public User connexion(String email, String password){
         User user = userRepository.findByEmail(email);
-        if (user == null || !passwordEncoder.matches(password, user.getMotDePasse())) {
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             throw new EntityNotFoundException("Email ou mot de passe incorrect");
+        }
+
+           return userRepository.save(user);
+
+    }
+*/
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Utilisateur non trouvé : " + username);
         }
         return user;
     }
 
     public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
     }
-
 }

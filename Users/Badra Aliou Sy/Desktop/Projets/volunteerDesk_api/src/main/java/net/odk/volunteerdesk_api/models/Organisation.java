@@ -18,7 +18,7 @@ public class Organisation{
     private Long idOrganisation;
 
     private String numeroIdentification;
-    private String motDePasse;
+    private String password;
     private String raisonSocial;
     private String logo;
     private String description;
@@ -30,6 +30,11 @@ public class Organisation{
     private String dateCreation;
     @Column(nullable = false)
     private Integer nbrSanction;
+    private Boolean isConnected;
+
+    @ManyToOne
+    @JoinColumn(name = "idRole")
+    private Role role;
 
     @OneToMany(mappedBy = "organisation")
     @JsonIgnore
