@@ -37,4 +37,8 @@ public class ResponseAuth {
 
         return false;
     }
+
+    public Object getErrorMessage() {
+        return "Donnée de connexion incorrecte";
+    }
 }

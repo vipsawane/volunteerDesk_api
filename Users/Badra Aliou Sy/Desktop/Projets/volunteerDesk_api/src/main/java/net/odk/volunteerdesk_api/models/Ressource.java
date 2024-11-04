@@ -19,6 +19,8 @@ public class Ressource {
     private String libelleRessource;
     private String contenuRessource;
     private int likeRessource;
+    private int initialLike;     ;
+    private boolean liked;
 
 
 

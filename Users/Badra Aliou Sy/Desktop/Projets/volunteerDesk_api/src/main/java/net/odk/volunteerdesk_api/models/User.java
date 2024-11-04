@@ -26,6 +26,7 @@ public class User implements UserDetails {
 
     private String nomUser;
     private String prenomUser;
+    @Column(nullable = false)
     private String genre;
     @Column(nullable = false)
     private String photoUser;
@@ -41,7 +42,9 @@ public class User implements UserDetails {
     private String numCarteIdentite;
     @Column(nullable = false)
     private String photoCarteIdentite;
+    @Column(nullable = false)
     private String competences;
+    @Column(nullable = false)
     private int anneeExperience;
     @Column(nullable = false)
     private int nbrSuspension;
